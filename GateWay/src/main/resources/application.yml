@@ -1,0 +1,21 @@
+server:
+  port: 8080
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://admin:2388@localhost:8761/eureka
+
+
+spring:
+  application:
+    name: gateway-service # 게이트웨이 서비스 이름 설정
+  cloud:
+    gateway:
+      routes:
+        - id: ms1
+          uri: lb://MS1 # Eureka에 등록된 서비스 ID로 요청을 보냄 (로드 밸런싱 활성화)
+          predicates:
+            - Path=/ms1/**
